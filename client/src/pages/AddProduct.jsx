@@ -2,6 +2,23 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+function UploadIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <rect x="3" y="5" width="18" height="14" rx="2" stroke="#2A78F6" strokeWidth="1.5" />
+      <circle cx="8" cy="10" r="1.4" fill="#2A78F6" />
+      <path d="M6.5 17L11 12.5L14 15.5L16.5 13L19 15.5V17H6.5Z" fill="#2A78F6" />
+    </svg>
+  );
+}
+
 export default function AddProduct() {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
@@ -93,88 +110,84 @@ export default function AddProduct() {
       <h2>Add Product</h2>
 
       <form onSubmit={submit} className="addProductForm">
-        {/* PRODUCT INFORMATION */}
-        <div className="productInfoSection">
-          <h3>Product Information</h3>
-          <p className="sectionSubtext">Fill details of the product</p>
+        <div className="addProductTopRow">
+          {/* PRODUCT INFORMATION */}
+          <div className="productInfoSection addCard">
+            <h3>Product Information</h3>
+            <p className="sectionSubtext">Fill details of the product</p>
 
-          <div className="formGroup">
-            <label>Product Name</label>
-            <input
-              type="text"
-              placeholder="Input product name"
-              value={productName}
-              onChange={(e) => setProductName(e.target.value)}
-              className="formInput"
-            />
+            <div className="formGroup">
+              <label>Product Name</label>
+              <input
+                type="text"
+                placeholder="Input product name"
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
+                className="formInput"
+              />
+            </div>
+
+            <div className="formGroup">
+              <label>Price</label>
+              <input
+                type="number"
+                placeholder="Enter Price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className="formInput"
+                step="0.01"
+                min="0"
+              />
+            </div>
           </div>
 
-          <div className="formGroup">
-            <label>Price</label>
-            <input
-              type="number"
-              placeholder="Enter Price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              className="formInput"
-              step="0.01"
-              min="0"
-            />
-          </div>
-        </div>
+          {/* IMAGE UPLOAD SECTION */}
+          <div className="imageProductSection addCard">
+            <h3>Image Product</h3>
+            <p className="sectionSubtext">Note : Format photos JPG, PNG, GIF, or WebP (Max size 4MB)</p>
 
-        {/* IMAGE UPLOAD SECTION */}
-        <div className="imageProductSection">
-          <h3>Image Product</h3>
-          <p className="sectionSubtext">
-            Note: Format photos JPG, PNG, or PDF Max file size
-          </p>
+            <div className="imageGridContainer">
+              {images.map((image, index) => (
+                <div key={index} className="imageUploadBox">
+                  <input
+                    type="file"
+                    id={`image-input-${index}`}
+                    accept="image/jpeg,image/png,image/gif,image/webp"
+                    onChange={(e) => handleImageChange(index, e.target.files[0])}
+                    style={{ display: "none" }}
+                  />
 
-          <div className="imageGridContainer">
-            {images.map((image, index) => (
-              <div key={index} className="imageUploadBox">
-                <input
-                  type="file"
-                  id={`image-input-${index}`}
-                  accept="image/jpeg,image/png,image/gif,image/webp"
-                  onChange={(e) => handleImageChange(index, e.target.files[0])}
-                  style={{ display: "none" }}
-                />
-
-                {image ? (
-                  <div className="imagePreview">
-                    <img src={URL.createObjectURL(image)} alt={`Preview ${index + 1}`} />
-                    <button
-                      type="button"
-                      className="removeImageBtn"
-                      onClick={() => removeImage(index)}
+                  {image ? (
+                    <div className="imagePreview">
+                      <img src={URL.createObjectURL(image)} alt={`Preview ${index + 1}`} />
+                      <button
+                        type="button"
+                        className="removeImageBtn"
+                        onClick={() => removeImage(index)}
+                      >
+                        X
+                      </button>
+                    </div>
+                  ) : (
+                    <div
+                      className="imageUploadPlaceholder"
+                      onClick={() => handleFileInputClick(index)}
                     >
-                      ×
-                    </button>
-                  </div>
-                ) : (
-                  <div
-                    className="imageUploadPlaceholder"
-                    onClick={() => handleFileInputClick(index)}
-                  >
-                    <div className="uploadIcon">📷</div>
-                    <p className="imagePlaceholderText">Photo {index + 1}</p>
-                  </div>
-                )}
-              </div>
-            ))}
+                      <UploadIcon />
+                      <p className="imagePlaceholderText">Photo {index + 1}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="imageActions">
+              <button type="submit" className="saveProductBtn" disabled={loading}>
+                {loading ? "Saving..." : "Save Product"}
+              </button>
+            </div>
           </div>
-
-          <p className="imageInfoText">
-            ✓ Format photos JPG, PNG, GIF, or WebP<br/>
-            ✓ Max file size 5MB each
-          </p>
         </div>
-
-        {/* SAVE BUTTON */}
-        <button type="submit" className="saveProductBtn" disabled={loading}>
-          {loading ? "Saving..." : "Save Product"}
-        </button>
       </form>
     </div>
   );

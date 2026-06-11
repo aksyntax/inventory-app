@@ -280,21 +280,42 @@ h2 {
 
 /* ADD PRODUCT CONTAINER */
 .addProductContainer {
-  background: white;
+  background: transparent;
   border-radius: 12px;
-  padding: 30px;
+  padding: 6px 0;
 }
 
 .addProductContainer h2 {
-  margin-bottom: 30px;
-  font-size: 24px;
+  margin-bottom: 18px;
+  font-size: 34px;
   font-weight: 600;
+  color: #23252d;
 }
 
 .addProductForm {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 18px;
+}
+
+.addProductTopRow {
+  display: grid;
+  grid-template-columns: minmax(380px, 1.15fr) minmax(320px, 1fr);
+  align-items: start;
+  gap: 14px;
+}
+
+.addCard {
+  background: #ffffff;
+  border: 1px solid #e6e8ef;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+@media (max-width: 1024px) {
+  .addProductTopRow {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* PRODUCT INFO SECTION */
@@ -302,39 +323,42 @@ h2 {
 .imageProductSection {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 .productInfoSection h3,
 .imageProductSection h3 {
   margin: 0;
-  font-size: 16px;
+  font-size: 32px;
   font-weight: 600;
-  color: #1f2937;
+  line-height: 1.1;
+  color: #2a2d35;
 }
 
 .sectionSubtext {
   margin: 0;
-  font-size: 13px;
-  color: #6b7280;
+  font-size: 12px;
+  color: #7a8090;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
+  margin-top: 2px;
 }
 
 .formGroup label {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
-  color: #374151;
+  color: #2f3340;
 }
 
 .formInput {
-  padding: 10px 14px;
-  border: 1px solid #d4d8e1;
-  border-radius: 8px;
+  height: 46px;
+  padding: 0 14px;
+  border: 2px solid #dfe3eb;
+  border-radius: 12px;
   font-size: 14px;
   background: white;
 }
@@ -345,43 +369,46 @@ h2 {
 
 .formInput:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: #5e95f7;
+  box-shadow: 0 0 0 3px rgba(94, 149, 247, 0.12);
 }
 
 /* IMAGE UPLOAD GRID */
 .imageGridContainer {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin: 15px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+  margin-bottom: 6px;
 }
 
 @media (max-width: 1024px) {
   .imageGridContainer {
-    grid-template-columns: repeat(2, 1fr);
+    justify-content: flex-start;
   }
 }
 
 @media (max-width: 640px) {
   .imageGridContainer {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 .imageUploadBox {
-  aspect-ratio: 1;
-  border: 2px dashed #d4d8e1;
-  border-radius: 12px;
+  width: 72px;
+  height: 72px;
+  border: 1.5px dashed #3f84f8;
+  border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  background: #f9fafb;
+  background: #f8fbff;
   transition: all 0.2s ease;
 }
 
 .imageUploadBox:hover {
-  border-color: #2563eb;
-  background: #eff6ff;
+  border-color: #236de9;
+  background: #eef5ff;
 }
 
 .imageUploadPlaceholder {
@@ -392,18 +419,14 @@ h2 {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  gap: 8px;
-}
-
-.uploadIcon {
-  font-size: 32px;
+  gap: 6px;
 }
 
 .imagePlaceholderText {
   margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: #6b7280;
+  font-size: 11px;
+  font-weight: 500;
+  color: #2f3b52;
 }
 
 .imagePreview {
@@ -421,15 +444,17 @@ h2 {
 
 .removeImageBtn {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 28px;
-  height: 28px;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
   background: rgba(255, 0, 0, 0.8);
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 18px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -453,17 +478,24 @@ h2 {
   line-height: 1.6;
 }
 
+.imageActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
 /* SAVE BUTTON */
 .saveProductBtn {
-  padding: 12px 24px;
-  background: #2563eb;
+  height: 40px;
+  min-width: 120px;
+  padding: 0 16px;
+  background: #2a78f6;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 10px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  align-self: flex-start;
   transition: background 0.2s ease;
 }
 
